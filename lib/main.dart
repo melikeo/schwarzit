@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(child: Scaffold(
       body: IndexedStack(
         index: index,
         children: const [
@@ -84,6 +84,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-    );
+    ));
   }
 }
