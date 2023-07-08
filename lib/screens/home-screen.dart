@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../rest/api-service.dart';
+import '../rest/models/products-model.dart';
+import 'cart-screen.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -44,9 +48,30 @@ class _HomeScreenState extends State<HomeScreen> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20)))),
                 ),
-                IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart)),
+                IconButton(onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const CartScreen()));
+                }, icon: Icon(Icons.shopping_cart)),
               ]),
-              SizedBox(height: 10),
+                  FutureBuilder(
+                      future: Future.wait([ApiService.getProducts()]),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<dynamic>> snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return const Center(child: CircularProgressIndicator());
+                        } else if (snapshot.connectionState == ConnectionState.done) {
+                          if (snapshot.data != null) {
+                            List<ProductsModel> erg = snapshot.data![0];
+                            return Produktliste(erg);
+                          } else {
+                            return const Text('No data');
+                          }
+                        } else {
+                          return Text('State: ${snapshot.connectionState}');
+                        }
+                      }),
+                  SizedBox(height: 10),
               //TextButton(onPressed: () {}, child: Text('Set store')),
 
               Align(
@@ -137,67 +162,39 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               SizedBox(height: 20),
 
-              SizedBox(
-                height: 1000,
-                child: GridView.count(
-                  primary: false,
-                  padding: const EdgeInsets.all(20),
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 2,
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(boxShadow: [
-                        new BoxShadow(
-                          color: Colors.grey.withOpacity(0.3),
-                          blurRadius: 2.0,
-                          spreadRadius: 0.3,
-                          offset: Offset(0, 2),
-                        )
-                      ]),
-                      child: Card(
-                          clipBehavior: Clip.hardEdge,
-                          child: InkWell(
-                              splashColor: Colors.blue.withAlpha(30),
-                              onTap: () {
-                                debugPrint('Card tapped.');
-                              },
-                              child: const SizedBox(
-                                width: 300,
-                                height: 500,
-                                child: Text('A card that can be tapped'),
-                              ))),
-                    ),
-                    Card(
-                        clipBehavior: Clip.hardEdge,
-                        child: InkWell(
-                            splashColor: Colors.blue.withAlpha(30),
-                            onTap: () {
-                              debugPrint('Card tapped.');
-                            },
-                            child: const SizedBox(
-                              width: 300,
-                              height: 500,
-                              child: Text('A card that can be tapped'),
-                            ))),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[100],
-                      child: const Text("He'd have you all unravel at the"),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[200],
-                      child: const Text('Heed not the rabble'),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[300],
-                      child: const Text('Sound of screams but the'),
-                    ),
-                  ],
-                ),
-              ),
+                  SizedBox(height: 1000)
             ]))));
   }
 }
+Widget Produktliste (List<ProductsModel>erg){
+  return GridView.builder(
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+    itemCount: erg.length,
+    itemBuilder: (context, index) {
+      return Container(
+        decoration: BoxDecoration(boxShadow: [
+          new BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            blurRadius: 2.0,
+            spreadRadius: 0.3,
+            offset: Offset(0, 2),
+          )
+        ]),
+        child: Card(
+            clipBehavior: Clip.hardEdge,
+            child: InkWell(
+                splashColor: Colors.blue.withAlpha(30),
+                onTap: () {
+                  debugPrint('Card tapped.');
+                },
+                child: const SizedBox(
+                  width: 300,
+                  height: 500,
+                  child: Text('A card that can be tapped'),
+                ))),
+      );
+    }
+    ,
+  );
+}
+
