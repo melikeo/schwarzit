@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Padding(
             padding: EdgeInsets.all(8.0),
             child: SingleChildScrollView(
-                child: Column(children: [
+                child: SizedBox(height: 1000, child: Column(children: [
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 SizedBox(
                   width: 345,
@@ -54,23 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       MaterialPageRoute(builder: (context) => const CartScreen()));
                 }, icon: Icon(Icons.shopping_cart)),
               ]),
-                  FutureBuilder(
-                      future: Future.wait([ApiService.getProducts()]),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<List<dynamic>> snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const Center(child: CircularProgressIndicator());
-                        } else if (snapshot.connectionState == ConnectionState.done) {
-                          if (snapshot.data != null) {
-                            List<ProductsModel> erg = snapshot.data![0];
-                            return Produktliste(erg);
-                          } else {
-                            return const Text('No data');
-                          }
-                        } else {
-                          return Text('State: ${snapshot.connectionState}');
-                        }
-                      }),
                   SizedBox(height: 10),
               //TextButton(onPressed: () {}, child: Text('Set store')),
 
@@ -160,41 +143,63 @@ class _HomeScreenState extends State<HomeScreen> {
                               ))),
                     ]),
               ),
-              SizedBox(height: 20),
-
-                  SizedBox(height: 1000)
-            ]))));
+                  FutureBuilder(
+                      future: Future.wait([ApiService.getProducts()]),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<dynamic>> snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return const Center(child: CircularProgressIndicator());
+                        } else if (snapshot.connectionState == ConnectionState.done) {
+                          if (snapshot.data != null) {
+                            List<ProductsModel> erg = snapshot.data![0];
+                            return Produktliste(erg.take(4).toList());
+                          } else {
+                            return const Text('No data');
+                          }
+                        } else {
+                          return Text('State: ${snapshot.connectionState}');
+                        }
+                      }),
+            ])))));
   }
 }
 Widget Produktliste (List<ProductsModel>erg){
-  return GridView.builder(
-    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-    itemCount: erg.length,
-    itemBuilder: (context, index) {
-      return Container(
-        decoration: BoxDecoration(boxShadow: [
-          new BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
-            blurRadius: 2.0,
-            spreadRadius: 0.3,
-            offset: Offset(0, 2),
-          )
-        ]),
-        child: Card(
-            clipBehavior: Clip.hardEdge,
-            child: InkWell(
-                splashColor: Colors.blue.withAlpha(30),
-                onTap: () {
-                  debugPrint('Card tapped.');
-                },
-                child: const SizedBox(
-                  width: 300,
-                  height: 500,
-                  child: Text('A card that can be tapped'),
-                ))),
-      );
-    }
-    ,
-  );
+  print('jsjsj');
+  print(erg.length);
+
+  List<Widget> child = [];
+  erg.forEach((element) {
+    var price = element.price;
+    var name = element.name;
+    var x = element.pack;
+    var huh = Container(
+      decoration: BoxDecoration(boxShadow: [
+        new BoxShadow(
+          color: Colors.grey.withOpacity(0.3),
+          blurRadius: 2.0,
+          spreadRadius: 0.3,
+          offset: Offset(0, 2),
+        )
+      ]),
+      child: Card(
+          clipBehavior: Clip.hardEdge,
+          child: InkWell(
+              splashColor: Colors.blue.withAlpha(30),
+              onTap: () {
+                debugPrint('Card tapped.');
+              },
+              child: const SizedBox(
+                width: 300,
+                height: 500,
+                child: Text('A card that can be tapped'),
+              ))),
+    );
+    child.add(huh);
+  });
+  return SizedBox(width: 300, height: 800, child: GridView.count(
+    crossAxisCount: 2,
+    children: child,
+  ));
+      
 }
 
