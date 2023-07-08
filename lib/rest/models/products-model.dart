@@ -10,18 +10,18 @@ class ProductsModel {
   ProductsModel({
     required this.id,
     required this.name,
-    required this.brand,
-    required this.pack,
-    required this.price,
-    required this.eans,
+    this.brand,
+    this.pack,
+    this.price,
+    this.eans,
   });
 
   int id;
   String name;
-  String brand;
-  String pack;
-  double price;
-  String eans;
+  String? brand;
+  String? pack;
+  double? price;
+  String? eans;
 
   factory ProductsModel.fromJson(Map<String, dynamic> json) => ProductsModel(
     id: json["id"],

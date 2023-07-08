@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:schwarzit/rest/api-service.dart';
-import 'package:schwarzit/rest/models/products-model.dart';
+import 'package:schwarzit/rest/models/request-model.dart';
 
 class EmptyScreen extends StatefulWidget {
   const EmptyScreen({super.key});
@@ -25,15 +25,15 @@ class _EmptyScreenState extends State<EmptyScreen> {
         child: Padding(
             padding: const EdgeInsets.all(8),
             child: FutureBuilder(
-                future: Future.wait([ApiService.getProducts()]),
+                future: Future.wait([ApiService.getProducts(), ApiService.getRequests()]),
                 builder: (BuildContext context,
                     AsyncSnapshot<List<dynamic>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.data != null) {
-                      List<ProductsModel> erg = snapshot.data![0];
-                      return Text(erg[0].id.toString());
+                      List<RequestModel> erg = snapshot.data![1];
+                      return Text(erg[0].status);
                     } else {
                       return const Text('No data');
                     }
