@@ -12,7 +12,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Welcome'),),
+      appBar: AppBar(
+        title: Text('Welcome'),
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart))
+        ],
+          ),
       body: Text('Home')
     );
   }
