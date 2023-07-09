@@ -194,7 +194,7 @@ Widget Produktliste (List<ProductsModel>erg){
             //Text('Here is a pic'),
           ],),
         Row(children: [
-          Text('$name', style: TextStyle(fontWeight: FontWeight.bold),),
+          SizedBox(width: 90, child:Text('$name', style: TextStyle(fontWeight: FontWeight.bold))),
       ],),
       Row(children: [
         Text('$x')]

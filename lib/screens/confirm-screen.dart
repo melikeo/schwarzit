@@ -57,11 +57,10 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
               title: 'Articles collected',
               child: Container(
                 padding: EdgeInsets.all(16),
-                child: Column(
+                child: Row(
                   children: [
-                    Text('Article 1'),
-                    Text('Article 2'),
-                    Text('Article 3'),
+                    Text('1. ${ConfirmScreen._products?.first.name} '),
+                    Text('for ${ConfirmScreen._products?.first.price}€')
                   ],
                 ),
               ),

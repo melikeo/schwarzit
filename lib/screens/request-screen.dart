@@ -13,6 +13,7 @@ class RequestScreen extends StatefulWidget {
 }
 
 class _RequestScreenState extends State<RequestScreen> {
+  bool findStore = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,14 +41,19 @@ class _RequestScreenState extends State<RequestScreen> {
                                       mainAxisAlignment: MainAxisAlignment
                                           .center,
                                       children: [
-                                        Icon(
+                                        IconButton(icon: Icon(
                                           Icons.storefront_outlined,
                                           size: 30,
-                                        ),
+                                        ), onPressed: () {
+                                          setState(() {
+                                            findStore = false;
+                                          }); },),
+                                        findStore ?
                                         Text(
-                                          'Store selected',
+                                          ' search for the nearest Store',
                                           style: TextStyle(fontSize: 17),
-                                        )
+                                        ) :
+                                            Text('Neckarauer Str. 35/41 \n68199 Mannheim-Neckarau')
                                       ]))))),
                   SizedBox(
                     height: 5,
@@ -71,7 +77,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                         size: 30,
                                       ),
                                       Text(
-                                        'Neighbourhood Address',
+                                        ' Locate your Address',
                                         style: TextStyle(fontSize: 17),
                                       )
                                     ],

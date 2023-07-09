@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:schwarzit/rest/models/products-model.dart';
 import 'package:schwarzit/rest/constants.dart';
 import 'package:schwarzit/rest/models/request-model.dart';
+import 'package:schwarzit/rest/models/store-model.dart';
 import 'package:schwarzit/rest/models/user-model.dart';
 
 class ApiService {
@@ -61,6 +62,20 @@ class ApiService {
       if (response.statusCode == 201) {
         List<String> splitted = name.split(' ');
         UserModel _model = userModelFromJson(response.body).where((element) => element.firstName == splitted[0] && element.lastName == splitted[1]).first;
+        return _model;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+  static Future<StoreModel?> getNearestStore(String address) async {
+    try {
+      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.storeEndpoint);
+
+      var response = await http.get(url);
+      if (response.statusCode == 201) {
+
+        StoreModel _model = storeModelFromJson(response.body).first;
         return _model;
       }
     } catch (e) {

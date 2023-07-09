@@ -199,7 +199,37 @@ class _CartScreenState extends State<CartScreen> {
             ],
           ),
         ],
-      ),
+      ),bottomNavigationBar: BottomNavigationBar(
+      showUnselectedLabels: true,
+      showSelectedLabels: true,
+      unselectedItemColor: Colors.black45,
+      selectedItemColor: Colors.red[400],
+      currentIndex: 2,
+      onTap: (int newindex) {
+      },
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.discount),
+          label: 'Discounts',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.group),
+          label: 'Requests',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.inventory_2),
+          label: 'Market',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.menu),
+          label: 'Menu',
+        ),
+      ],
+    )
     );
   }
 }
