@@ -30,8 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: Padding(
             padding: EdgeInsets.all(8.0),
-            child: SingleChildScrollView(
-                child: SizedBox(height: 1000, child: Column(children: [
+            child: ListView(children: [
+                SizedBox(height: 1000, child: Column(children: [
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 SizedBox(
                   width: 345,
@@ -69,6 +69,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     scrollDirection: Axis.horizontal,
                     children: <Widget>[
                       Card(
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Colors.red,
+                          ),
+                              borderRadius: BorderRadius.circular(15.0)
+                        ),
                           clipBehavior: Clip.hardEdge,
                           child: InkWell(
                               splashColor: Colors.blue.withAlpha(30),
@@ -143,6 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ))),
                     ]),
               ),
+                  SizedBox(height: 10),
                   FutureBuilder(
                       future: Future.wait([ApiService.getProducts()]),
                       builder: (BuildContext context,
@@ -152,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (snapshot.connectionState == ConnectionState.done) {
                           if (snapshot.data != null) {
                             List<ProductsModel> erg = snapshot.data![0];
-                            return Produktliste(erg.take(4).toList());
+                            return Produktliste(erg.take(6).toList());
                           } else {
                             return const Text('No data');
                           }
@@ -160,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Text('State: ${snapshot.connectionState}');
                         }
                       }),
-            ])))));
+            ]))])));
   }
 }
 Widget Produktliste (List<ProductsModel>erg){
@@ -181,25 +188,33 @@ Widget Produktliste (List<ProductsModel>erg){
           offset: Offset(0, 2),
         )
       ]),
-      child: Card(
-          clipBehavior: Clip.hardEdge,
-          child: InkWell(
-              splashColor: Colors.blue.withAlpha(30),
-              onTap: () {
-                debugPrint('Card tapped.');
-              },
-              child: const SizedBox(
-                width: 300,
-                height: 500,
-                child: Text('A card that can be tapped'),
-              ))),
+        child: SizedBox(width: 100, height: 100,
+        child: Column(children: [
+          Row(children: [
+            //Text('Here is a pic'),
+          ],),
+        Row(children: [
+          Text('$name', style: TextStyle(fontWeight: FontWeight.bold),),
+      ],),
+      Row(children: [
+        Text('$x')]
+      ),
+          Row(children: [
+            Text('$price €'),
+
+          ],
+          ),
+        ],)),
+
     );
     child.add(huh);
   });
-  return SizedBox(width: 300, height: 800, child: GridView.count(
+  return SizedBox(width: 400, height: 600, child: GridView.count(
     crossAxisCount: 2,
+    crossAxisSpacing: 5,
+    mainAxisSpacing: 5,
     children: child,
   ));
-      
+
 }
 
