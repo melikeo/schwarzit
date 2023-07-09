@@ -35,13 +35,13 @@ class _CartScreenState extends State<CartScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Fettarme Milch 1,5% Fett',
+                              '3-Klingenrasierer men',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              '1 litre',
+                              '1 Stk.',
                             ),
                           ],
                         ),
@@ -69,7 +69,7 @@ class _CartScreenState extends State<CartScreen> {
                             ),
                             SizedBox(width: 8),
                             Text(
-                              '4',
+                              '1',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
@@ -99,7 +99,7 @@ class _CartScreenState extends State<CartScreen> {
                         bottom: 8,
                         right: 8,
                         child: Text(
-                          '€7,20',
+                          '€2,99',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
@@ -130,7 +130,7 @@ class _CartScreenState extends State<CartScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Subtotal'),
-                      Text('7,20€'),
+                      Text('2,99€'),
                     ],
                   ),
                 ),
@@ -165,7 +165,7 @@ class _CartScreenState extends State<CartScreen> {
                         'Total cost',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      Text('7,20€', style: TextStyle(fontWeight: FontWeight.bold),),
+                      Text('2,99€', style: TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                 ),
@@ -204,7 +204,7 @@ class _CartScreenState extends State<CartScreen> {
       showSelectedLabels: true,
       unselectedItemColor: Colors.black45,
       selectedItemColor: Colors.red[400],
-      currentIndex: 2,
+      currentIndex: 0,
       onTap: (int newindex) {
       },
       items: const [

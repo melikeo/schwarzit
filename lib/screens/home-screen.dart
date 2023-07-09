@@ -15,7 +15,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -159,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (snapshot.connectionState == ConnectionState.done) {
                           if (snapshot.data != null) {
                             List<ProductsModel> erg = snapshot.data![0];
-                            return Produktliste(erg.take(6).toList());
+                            return Produktliste(erg.take(6).toList(), context);
                           } else {
                             return const Text('No data');
                           }
@@ -170,7 +169,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ]))])));
   }
 }
-Widget Produktliste (List<ProductsModel>erg){
+Widget Produktliste (List<ProductsModel>erg, BuildContext context){
+  SnackBar snackBar = SnackBar(
+    content: Text('We added the article to your card!'),
+  );
   print('jsjsj');
   print(erg.length);
 
@@ -204,7 +206,8 @@ Widget Produktliste (List<ProductsModel>erg){
 
           ],
           ),
-        ],)),
+        SizedBox(height: 30,),
+        Align(alignment: Alignment.bottomRight, child: FloatingActionButton(onPressed: (){ScaffoldMessenger.of(context).showSnackBar(snackBar);}, child: Icon(Icons.add)))],)),
 
     );
     child.add(huh);
