@@ -80,6 +80,7 @@ class ApiService {
         print('ze');
         List<String> ids = [];
         _model.shoppinglist.forEach((element) {ids.add(element.product.id.toString());});
+        print(ids);
 
         var url2 = Uri.parse(ApiConstants.baseUrl + ApiConstants.productsEndpoint);
 
@@ -89,7 +90,17 @@ class ApiService {
           print('worked6');
           print('jej');
           List<ProductsModel> _modellist = articleModelFromJson(response2.body);
-          return _modellist.where((element) => ids.contains(element.id)).toList();
+          List<ProductsModel> filtered = [];
+          _modellist.forEach((element) {
+            ids.forEach((x) {
+                if(x == element.id.toString()) {
+                  print('ssss');
+                  filtered.add(element);
+                }
+            }) ;
+          });
+          print(filtered.isEmpty);
+          return filtered;
         }
 
       }
