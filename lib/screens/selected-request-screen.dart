@@ -25,7 +25,7 @@ class SelectedRequestScreen extends StatefulWidget {
 class _SelectedRequestScreenState extends State<SelectedRequestScreen> {
   UserModel? receiver;
   List<ProductsModel>? products;
-  List<bool> _isChecked = [false, false, false, false];
+  bool _isChecked = false;
   @override
   Widget build(BuildContext context) {
     Color getColor(Set<MaterialState> states) {
@@ -74,10 +74,10 @@ class _SelectedRequestScreenState extends State<SelectedRequestScreen> {
                         Container(child: Checkbox(
                           checkColor: Colors.white,
                           fillColor: MaterialStateProperty.resolveWith(getColor),
-                          value: _isChecked[index],
+                          value: _isChecked,
                           onChanged: (bool? value) {
                             setState(() {
-                              _isChecked[index] = value!;
+                              _isChecked = value!;
                               print(index);
                             });
                           },

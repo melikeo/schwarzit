@@ -3,4 +3,5 @@ class ApiConstants {
   static String productsEndpoint = 'product/';
   static String requestEndpoint = 'request/';
   static String customerEndpoint = 'customer/';
+  static String storeEndpoint = 'store/near/';
 }
