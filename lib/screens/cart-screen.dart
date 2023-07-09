@@ -26,8 +26,86 @@ class _CartScreenState extends State<CartScreen> {
                 child: SizedBox(
                   width: 380,
                   height: 100,
-                  child: Center(
-                    child: Text('Elevated Card'),
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        top: 8,
+                        left: 8,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Fettarme Milch 1,5% Fett',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              '1 litre',
+                            ),
+                          ],
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 8,
+                        left: 8,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [ Row(children: [
+                            Container(
+                              width: 30,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.red,
+                              ),
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.remove,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              '4',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(width: 8),
+                            Container(
+                              width: 30,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.red,
+                              ),
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                      )]
+                        ),
+          ),
+
+                      Positioned(
+                        bottom: 8,
+                        right: 8,
+                        child: Text(
+                          '€7,20',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -52,7 +130,7 @@ class _CartScreenState extends State<CartScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Subtotal'),
-                      Text('123.45€'),
+                      Text('7,20€'),
                     ],
                   ),
                 ),
@@ -68,7 +146,7 @@ class _CartScreenState extends State<CartScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Shipping cost'),
-                      Text('00.00€'),
+                      Text('0.00€'),
                     ],
                   ),
                 ),
@@ -87,7 +165,7 @@ class _CartScreenState extends State<CartScreen> {
                         'Total cost',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      Text('123.45€'),
+                      Text('7,20€', style: TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                 ),
